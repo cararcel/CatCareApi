@@ -22,6 +22,6 @@ public class WeatherForecastController : ControllerBase
         })
         .ToArray();
 
-        return NotFound(result);
+        return Ok(result);
     }
 }
