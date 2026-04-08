@@ -25,9 +25,10 @@ public class VideoGameCharacterService : IVideoGameCharacterService
         => await Task.FromResult(characters);
 
 
-    public async Task<Character> GetCharacterByIdAsync(int id)
+    public async Task<Character?> GetCharacterByIdAsync(int id)
     {
-        var result = Character.FirstOrDefault(c => c.Id == id);
+        var result = characters.FirstOrDefault(c => c.Id == id);
+        return await Task.FromResult(result);
     }
 
     public Task<bool> UpdateCharacterAsync(int id, Character character)
