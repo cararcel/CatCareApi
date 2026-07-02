@@ -1,7 +1,7 @@
-using Characters.Data;
+using CatCareApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
-using VideoGameCharacterApi.Services;
+using CatCareApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +14,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IVideoGameCharacterService, VideoGameCharacterService>();
+builder.Services.AddScoped<ICatCareService, CatCareService>();
 
 var app = builder.Build();
 //app.MapScalarApiReference();
@@ -22,6 +22,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    await app.SeedDevelopmentDataAsync();
     app.MapOpenApi();
     app.MapScalarApiReference();
 }

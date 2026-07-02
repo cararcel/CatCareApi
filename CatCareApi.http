@@ -1,0 +1,93 @@
+@CatCareApi_HostAddress = http://localhost:5100
+
+POST {{CatCareApi_HostAddress}}/api/breeds
+Content-Type: application/json
+
+{
+  "name": "Domestic Shorthair",
+  "description": "Friendly mixed-breed short-haired cat."
+}
+
+###
+
+POST {{CatCareApi_HostAddress}}/api/owners
+Content-Type: application/json
+
+{
+  "fullName": "Cami Example",
+  "email": "cami@example.com",
+  "phoneNumber": "+32 123 456 789",
+  "address": "Brussels"
+}
+
+###
+
+POST {{CatCareApi_HostAddress}}/api/cats
+Content-Type: application/json
+
+{
+  "name": "Milo",
+  "dateOfBirth": "2022-05-14T00:00:00",
+  "sex": "Male",
+  "color": "Black and white",
+  "microchipNumber": "981020000000000",
+  "breedId": null,
+  "ownerId": 1
+}
+
+###
+
+GET {{CatCareApi_HostAddress}}/api/cats
+Accept: application/json
+
+###
+
+POST {{CatCareApi_HostAddress}}/api/cats/1/vet-visits
+Content-Type: application/json
+
+{
+  "visitDate": "2026-07-02T09:30:00",
+  "clinicName": "Central Vet Clinic",
+  "veterinarianName": "Dr. Smith",
+  "reason": "Annual wellness exam",
+  "notes": "Healthy exam.",
+  "followUpDate": "2027-07-02T09:30:00"
+}
+
+###
+
+POST {{CatCareApi_HostAddress}}/api/cats/1/vaccines
+Content-Type: application/json
+
+{
+  "name": "Rabies",
+  "administeredDate": "2026-07-02T09:45:00",
+  "dueDate": "2027-07-02T09:45:00",
+  "clinicName": "Central Vet Clinic",
+  "notes": "No reaction observed."
+}
+
+###
+
+POST {{CatCareApi_HostAddress}}/api/cats/1/medications
+Content-Type: application/json
+
+{
+  "name": "Flea prevention",
+  "dosage": "1 pipette",
+  "frequency": "Monthly",
+  "startDate": "2026-07-02T00:00:00",
+  "endDate": null,
+  "notes": "Apply between shoulder blades."
+}
+
+###
+
+POST {{CatCareApi_HostAddress}}/api/cats/1/weights
+Content-Type: application/json
+
+{
+  "recordedAt": "2026-07-02T09:30:00",
+  "weightKg": 4.65,
+  "notes": "Measured at annual checkup."
+}

@@ -1,47 +1,48 @@
-# 🎮 VideoGameCharacterApi
+# CatCareApi
 
-A RESTful API built with ASP.NET Core for managing video game characters.
-This project demonstrates how to design and structure a backend application using clean architecture principles, Entity Framework Core, and a containerized SQL Server setup.
+A RESTful API built with ASP.NET Core for managing cats and their care history.
+It tracks cats, breeds, owners, vet visits, vaccines, medications, and weight records.
 
 ---
 
-## 🚀 Overview
+## Overview
 
-This project was built as part of my transition into backend development, with a focus on understanding how real-world APIs are structured and configured.
-
-Instead of relying on Visual Studio scaffolding, the application was set up manually in a Linux environment using Visual Studio Code. This approach helped me gain a deeper understanding of backend configuration, database connections, and development workflows.
+This project uses a layered ASP.NET Core structure with controllers, services, DTOs,
+Entity Framework Core, and a containerized SQL Server database.
 
 ### Key decisions
 
-- Use of **layered architecture** (Controllers → Services → DTOs)
-- Separation of concerns using **DTOs**
-- Database managed with **Entity Framework Core (Code First)**
-- SQL Server running in a **Docker container** instead of LocalDB
+- Layered architecture: Controllers -> Services -> DTOs
+- Entity Framework Core Code First migrations
+- SQL Server running in Docker
+- Cat profiles return related owner, breed, and care history data
 
 ---
 
-## ✨ Features
+## Features
 
-- Get all video game characters
-- Get a character by ID
-- Create a new character
-- Update an existing character
-- Delete a character
-
----
-
-## 🛠️ Tech Stack
-
-- **Language:** C#
-- **Framework:** ASP.NET Core (.NET 10)
-- **Database:** SQL Server (Docker)
-- **ORM:** Entity Framework Core
-- **API Documentation:** Swagger / OpenAPI
-- **Tools:** Docker, Git, GitHub
+- Get, create, update, and delete cats
+- Create and list breeds, with breed optional when registering a cat
+- Create and list owners
+- Add vet visits to a cat
+- Add vaccines to a cat
+- Add medications to a cat
+- Add weight records to a cat
 
 ---
 
-## 📁 Project Structure
+## Tech Stack
+
+- Language: C#
+- Framework: ASP.NET Core (.NET 10)
+- Database: SQL Server (Docker)
+- ORM: Entity Framework Core
+- API Documentation: OpenAPI / Scalar
+- Tools: Docker, Git
+
+---
+
+## Project Structure
 
 ```text
 .
@@ -58,9 +59,7 @@ Instead of relying on Visual Studio scaffolding, the application was set up manu
 
 ---
 
-## ⚙️ Database Setup
-
-This project uses **SQL Server in Docker** for a production-like local environment.
+## Database Setup
 
 ### 1. Start the database
 
@@ -83,47 +82,41 @@ dotnet ef database update
 ### 4. Run the application
 
 ```bash
-dotnet run
+dotnet run --project CatCareApi.csproj
+```
+
+In Development, the app automatically applies pending migrations and seeds fake data
+if the `Cats` table is empty. After startup, check seeded cats at:
+
+```text
+GET http://localhost:5100/api/cats
 ```
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
-| Method | Endpoint             | Description          |
-| ------ | -------------------- | -------------------- |
-| GET    | /api/characters      | Get all characters   |
-| GET    | /api/characters/{id} | Get character by ID  |
-| POST   | /api/characters      | Create new character |
-| PUT    | /api/characters/{id} | Update character     |
-| DELETE | /api/characters/{id} | Delete character     |
-
----
-
-## 🧠 What I Learned
-
-- How to structure a backend project using layered architecture
-- How to use DTOs to separate API contracts from domain models
-- How to configure and connect to a SQL Server database in Docker
-- How Entity Framework Core handles migrations and data access
-- How to build and test RESTful APIs using Swagger
+| Method | Endpoint                         | Description             |
+| ------ | -------------------------------- | ----------------------- |
+| GET    | /api/cats                        | Get all cats            |
+| GET    | /api/cats/{id}                   | Get cat by ID           |
+| POST   | /api/cats                        | Create a cat            |
+| PUT    | /api/cats/{id}                   | Update a cat            |
+| DELETE | /api/cats/{id}                   | Delete a cat            |
+| GET    | /api/breeds                      | Get all breeds          |
+| POST   | /api/breeds                      | Create a breed          |
+| GET    | /api/owners                      | Get all owners          |
+| POST   | /api/owners                      | Create an owner         |
+| POST   | /api/cats/{catId}/vet-visits     | Add a vet visit         |
+| POST   | /api/cats/{catId}/vaccines       | Add a vaccine           |
+| POST   | /api/cats/{catId}/medications    | Add a medication        |
+| POST   | /api/cats/{catId}/weights        | Add a weight record     |
 
 ---
 
-## 📌 Future Improvements
+## Future Improvements
 
-- Add authentication (JWT)
-- Add validation and error handling middleware
-- Implement repository pattern
+- Add validation attributes and clearer error responses
+- Add authentication for owner-specific records
+- Add update and delete endpoints for individual care records
 - Add unit and integration tests
-- Deploy to cloud (Azure or similar)
-
----
-
-## 📄 License
-
-This project is for learning purposes and part of my developer portfolio.
-
-## 🙏 Acknowledgments
-
-This project was inspired by Patrick God's .NET 10 Web API tutorial.
